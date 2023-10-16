@@ -83,7 +83,7 @@ section img
 #text
 {
     position: absolute;
-    color: #fff;
+    color: #ffff;
     white-space: nowrap;
     font-size: 7.5vw;
     z-index: 9;
@@ -100,3 +100,11 @@ section img
     margin-top: 20px;
     font-size: 18px;
 }
+
+.centered {
+    color: #9e00f4;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
