@@ -20,12 +20,34 @@
         <img src="Wallpaper.jpg" id="Background">
         <h2 id="text">Work </h2>
         <div class="centered">Links to my github are provided below</div>
+        <div id="repositories">
+            <div class="centered"> <div class="offcenter"><a class="contact-link" target="_blank" href="https://github.com/VictorPartain/Hackandslash">Hackandslash
+            </a></div> </div>
+        </div>
 
     </Section>
     <div class="aboutMe">
-        <p>
-
-        </p>
+        <p> </p>
     </div>
+    <script>
+        // Fetch your GitHub repositories using the GitHub API
+        fetch('https://api.github.com/users/VictorPartain/repos')
+            .then(response => response.json())
+            .then(repositories => {
+                const repositoriesContainer = document.getElementById('repositories');
+
+                // Loop through the repositories and create links
+                repositories.forEach(repository => {
+                    const repoLink = document.createElement('a');
+                    repoLink.href = repository.html_url;
+                    repoLink.textContent = repository.name;
+
+                    // Append the link to the repositories container
+                    repositoriesContainer.appendChild(repoLink);
+                    repositoriesContainer.appendChild(document.createElement('br')); // Add line break
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
 </body>
 </html>

@@ -100,12 +100,42 @@ section img
 .content p {
     margin-top: 20px;
     font-size: 18px;
+    color:white;
 }
 
 .centered {
-    color: #9e00f4;
+    color: white;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .offcenter
+  {
+      color: white;
+      position: flex;
+      top: 90%;
+      left: 90%;
+      transform: translate(-85%, 100%);
+  }
+
+.offcenter2
+{
+    color: white;
+    position: flex;
+    top: 90%;
+    left: 90%;
+    transform: translate(-35%, 100%);
+}
+
+/* Add your desired color for the links */
+.contact-link {
+    color: white; /* Change to the color you prefer */
+    text-decoration: none; /* Remove underline if desired */
+}
+
+/* Change the color on hover (optional) */
+.contact-link:hover {
+    color: purple; /* Change to a different color on hover if desired */
+}
