@@ -10,6 +10,8 @@
       --bg1:#03030a; --bg2:#131129;
       --surface:#0b0b12; --card:#0f1220; --stroke:#1f2937;
       --text:#e5e7eb; --muted:#94a3b8; --ring:#8b5cf6; --accent:#22c55e;
+      --cardW: 300px;   /* base card width */
+      --cardH: 240px;   /* uniform card height */
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{
@@ -39,121 +41,81 @@
       display:inline-block;text-decoration:none;padding:8px 12px;
       border-radius:999px;color:var(--text)
     }
-    .nav a:focus,.nav a:hover{
-      background:rgba(139,92,246,.18);
-      outline:none;
-    }
+    .nav a:focus,.nav a:hover{ background:rgba(139,92,246,.18); outline:none; }
 
     /* Sections */
     section{
       position:relative;
       padding:96px 16px;
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex;align-items:center;justify-content:center;
     }
     .container{max-width:1100px;margin:0 auto;text-align:center}
 
     /* Hero */
     .hero-card{
-      background:rgba(15,18,32,.7);
-      backdrop-filter:blur(8px);
-      padding:36px 26px;
-      border-radius:24px;
-      border:1px solid rgba(255,255,255,.08);
+      background:rgba(15,18,32,.7); backdrop-filter:blur(8px);
+      padding:36px 26px; border-radius:24px; border:1px solid rgba(255,255,255,.08);
       box-shadow:0 20px 60px rgba(0,0,0,.45);
     }
     .hero h1{font-size:clamp(28px,6vw,54px);margin-bottom:6px}
     .hero p{color:var(--muted);max-width:68ch;margin:6px auto;line-height:1.6}
 
-    /* Projects grid */
-    #projects .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
-      grid-auto-rows:1fr;
-      gap:20px;
-      justify-items:stretch;
-      align-items:stretch;
-      width:100%;
+    /* Projects — horizontal flow with uniform cards */
+    #projects .project-row{
+      display:flex; flex-wrap:wrap; justify-content:center; gap:20px; width:100%;
     }
-
     .card{
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
+      flex: 0 1 var(--cardW);
+      width: var(--cardW);
+      height: var(--cardH);           /* uniform height */
+      overflow: hidden;               /* keep size consistent */
+      display:flex; flex-direction:column;
       background:linear-gradient(180deg,rgba(17,20,37,.9),rgba(12,14,26,.85));
       color:var(--text);
-      border:1px solid var(--stroke);
-      border-radius:16px;
+      border:1px solid var(--stroke); border-radius:16px;
       padding:18px;
       box-shadow:0 8px 20px rgba(0,0,0,.35);
       backdrop-filter:blur(6px);
       transition:transform .2s ease, box-shadow .2s ease;
+      text-align:left;
     }
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 26px rgba(0,0,0,.45);
+    .card:hover{ transform:translateY(-4px); box-shadow:0 12px 26px rgba(0,0,0,.45); }
+    .card a{ color:inherit; text-decoration:none; display:flex; flex-direction:column; height:100%; }
+
+    .title{
+      margin:0 0 8px; font-size:1.05rem; line-height:1.4;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; /* 1-line clamp */
     }
-    .card h3{margin:0 0 8px;font-size:1.05rem;line-height:1.4}
     .desc{
-      flex-grow:1;
-      color:#cbd5e1;
-      font-size:.92rem;
-      margin:.35rem 0 .5rem;
+      color:#cbd5e1; font-size:.92rem; margin:.35rem 0 .5rem;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; /* 3-line clamp */
     }
     .meta{
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:flex-start;
-      gap:6px;
-      font-size:.78rem;
-      color:#a3b2c6;
-      margin-top:auto;
+      margin-top:auto;                 /* stick to bottom */
+      display:flex; flex-wrap:wrap; gap:6px; font-size:.78rem; color:#a3b2c6;
     }
-    .pill{
-      background:rgba(139,92,246,.15);
-      border:1px solid rgba(139,92,246,.35);
-      color:#e9e5ff;
-      border-radius:999px;
-      padding:2px 8px;
-    }
-    .pill.alt{
-      background:rgba(34,197,94,.12);
-      border-color:rgba(34,197,94,.35);
-      color:#d7ffe5;
-    }
+    .pill{ background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.35);
+      color:#e9e5ff; border-radius:999px; padding:2px 8px; }
+    .pill.alt{ background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.35); color:#d7ffe5; }
 
     /* Contact buttons */
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      justify-content:center;
+    .cta-row{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--surface); color:#f8fafc; border:1px solid var(--stroke);
+      padding:10px 16px; border-radius:12px; text-decoration:none; font-weight:500;
+      transition: box-shadow .2s ease, border-color .2s ease;
     }
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--surface);
-  color: #f8fafc;
-  border: 1px solid var(--stroke);
-  padding: 10px 16px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: box-shadow .2s ease, border-color .2s ease;
-}
-.btn:hover {
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  border-color: rgba(139,92,246,.45);
-}
-.icon {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  vertical-align: middle;
-}
+    .btn:hover{ box-shadow:0 10px 30px rgba(0,0,0,.35); border-color:rgba(139,92,246,.45); }
+    .icon{ width:20px; height:20px; object-fit:contain; vertical-align:middle; }
+
+    /* Responsive adjustments */
+    @media (max-width: 720px){
+      :root{ --cardW: 100%; --cardH: 220px; } /* full-width cards on small screens */
+      .card{ max-width: 100%; }
+    }
+
     /* Footer */
     footer{padding:40px 16px;color:var(--muted);text-align:center}
   </style>
@@ -170,79 +132,106 @@
     </nav>
   </header>
 
+  <!-- ABOUT -->
   <section id="about" class="hero">
     <div class="container hero-card">
       <h1>Hi, I’m Victor Partain</h1>
-      <p>CS student & developer. I build gameplay systems, tools, and web apps.<br>
-         Currently exploring graphics/modding and full-stack JavaScript.
-         Below you’ll find an auto-updating grid of my public GitHub projects.</p>
+      <p>
+        I’m a Computer Science student at <strong>San Diego State University</strong>, 
+        graduating in <strong>June 2027</strong>. I specialize in software engineering, 
+        cloud infrastructure, and backend automation — with hands-on experience in 
+        <strong>Java</strong>, <strong>Python</strong>, <strong>Kotlin</strong>, and modern 
+        web technologies.
+      </p>
+      <p>
+        I’m currently expanding my expertise in <strong>AWS cloud services</strong> and 
+        containerized systems through guided labs and self-directed projects. My work 
+        spans from backend integration and full-stack web development to game modding 
+        and UI/UX design.
+      </p>
+      <p>
+        As <strong>President of the Computer Science & Cybersecurity Club</strong> at Grossmont College, 
+        I lead 25+ members in collaborative projects, coding workshops, and professional 
+        development events. In my previous roles as Vice President & Game Development Director, I 
+        helped grow participation by 40% and mentored multiple student development teams.
+      </p>
+      <p>
+        My toolkit includes <strong>AWS</strong>, <strong>Docker</strong>, <strong>Linux</strong>, 
+        <strong>Firebase</strong>, <strong>Gradle Kotlin DSL</strong>, and <strong>GitHub Actions</strong>. 
+        I enjoy solving complex challenges, automating systems, and building creative, reliable software.
+      </p>
     </div>
   </section>
 
+  <!-- PROJECTS -->
   <section id="projects">
     <div class="container">
       <h2>Projects</h2>
-      <p style="margin:0 0 18px;color:var(--muted)">Auto-updated from my public GitHub repositories.</p>
-      <div id="repo-grid" class="grid"></div>
+      <p style="margin:0 0 18px;color:var(--muted)">Auto-updated from my public GitHub repositories (About = repo description).</p>
+      <div id="repo-grid" class="project-row"></div>
     </div>
   </section>
 
-<section id="contact">
-  <div class="container">
-    <h2>Contact</h2>
-    <p style="margin:0 0 18px;color:var(--muted)">
-      Reach out for collaborations, internships, or game/mod ideas.
-    </p>
-    <div class="cta-row">
-      <a class="btn" href="mailto:Victorpartain@gmail.com" target="_blank" rel="noopener">
-        <img src="Gmail.png" alt="Email icon" class="icon"> Email
-      </a>
-      <a class="btn" href="https://www.linkedin.com/in/victor-partain-787791254" target="_blank" rel="noopener">
-        <img src="LinkedIn.png" alt="LinkedIn logo" class="icon"> LinkedIn
-      </a>
-      <a class="btn" href="https://github.com/VictorPartain" target="_blank" rel="noopener">
-        <img src="github.png" alt="GitHub logo" class="icon"> GitHub
-      </a>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p style="margin:0 0 18px;color:var(--muted)">Reach out for collaborations, internships, or game/mod ideas.</p>
+      <div class="cta-row">
+        <a class="btn" href="mailto:Victorpartain@gmail.com" target="_blank" rel="noopener">
+          <img src="Gmail.png" alt="Email icon" class="icon"> Email
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/victor-partain-787791254" target="_blank" rel="noopener">
+          <img src="LinkedIn.png" alt="LinkedIn logo" class="icon"> LinkedIn
+        </a>
+        <a class="btn" href="https://github.com/VictorPartain" target="_blank" rel="noopener">
+          <img src="github.png" alt="GitHub logo" class="icon"> GitHub
+        </a>
+      </div>
     </div>
-  </div>
-</section>
-
+  </section>
 
   <footer>© <span id="y"></span> Victor Partain</footer>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    const grid=document.getElementById('repo-grid');
-    const USER='VictorPartain';
+    const grid = document.getElementById('repo-grid');
+    const USER = 'VictorPartain';
 
     async function getRepos(){
-      const res=await fetch(`https://api.github.com/users/${USER}/repos?per_page=100&sort=updated`);
-      const data=await res.json();
-      return data.filter(r=>!r.fork);
+      const res = await fetch(`https://api.github.com/users/${encodeURIComponent(USER)}/repos?per_page=100&sort=updated`);
+      const data = await res.json();
+      return data.filter(r => !r.fork);
     }
 
     function makeCard(r){
-      const u=r.homepage?.trim()?r.homepage:r.html_url;
-      const up=new Date(r.pushed_at).toLocaleDateString();
-      const lang=r.language?`<span class='pill'>${r.language}</span>`:'';
-      const stars=r.stargazers_count?`<span class='pill alt'>⭐ ${r.stargazers_count}</span>`:'';
-      const desc=r.description?`<p class='desc'>${r.description}</p>`:'';
-      return`<article class='card'>
-               <a href='${u}' target='_blank' rel='noopener'>
-                 <h3>${r.name}</h3>${desc}
-                 <div class='meta'>${lang}${stars}<span class='pill'>Updated ${up}</span></div>
-               </a>
-             </article>`;
+      const primary = (r.homepage && r.homepage.trim()) ? r.homepage : r.html_url;
+      const updated = new Date(r.pushed_at || r.updated_at).toLocaleDateString();
+      const lang = r.language ? `<span class="pill">${r.language}</span>` : '';
+      const stars = r.stargazers_count ? `<span class="pill alt">⭐ ${r.stargazers_count}</span>` : '';
+      const desc = r.description ? `<p class="desc">${r.description}</p>` : `<p class="desc" style="opacity:.8">No description provided.</p>`;
+
+      return `
+        <article class="card">
+          <a href="${primary}" target="_blank" rel="noopener" aria-label="Open ${r.name}">
+            <h3 class="title">${r.name}</h3>
+            ${desc}
+            <div class="meta">
+              ${lang}${stars}
+              <span class="pill">Updated ${updated}</span>
+            </div>
+          </a>
+        </article>`;
     }
 
     (async()=>{
-      grid.innerHTML='<p>Loading projects...</p>';
+      grid.innerHTML = '<p>Loading projects...</p>';
       try{
-        const repos=await getRepos();
-        grid.innerHTML=repos.map(makeCard).join('');
+        const repos = await getRepos();
+        grid.innerHTML = repos.map(makeCard).join('');
       }catch(e){
-        grid.innerHTML='<p>Error loading projects.</p>';
+        grid.innerHTML = '<p>Error loading projects.</p>';
       }
     })();
   </script>
